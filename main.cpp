@@ -61,6 +61,7 @@ int main() {
             cout<<"\n\n\t05. EXIT";
             cout<<"\n\n\tSelect Your Option (1-5) ";
             cin>>ch;
+            system("clear");
             switch(ch)
             {
                 case '1':
