@@ -11,12 +11,12 @@ using namespace std;
 typedef struct LogInfo {
     char Password[12];
     int Number;
+    char name[50];
 }log;
 
 class account {
 private:
     log l;
-    char name[50];
     int deposit;
 public:
     log GetLog(){ return l;}

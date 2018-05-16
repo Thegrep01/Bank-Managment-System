@@ -167,7 +167,6 @@ void deposit_withdraw(int n, int option) {
                 cout<<"\n\n\tTO WITHDRAW AMOUNT ";
                 cout<<"\n\nEnter The amount to be withdraw";
                 cin>>amt;
-                int bal= ac.GetDeposite()-amt;
                 ac.draw(amt);
             }
             int pos=(-1)*static_cast<int>(sizeof(ac));
@@ -208,12 +207,72 @@ int login() {
             cout << "File could not be open !! Press any Key...";
             return 0;
         }
-        while (inFile.read(reinterpret_cast<char *> (&ac), sizeof(account)))
-            if (ac.GetLog().Number == stoi(num) && strcmp(password,ac.GetLog().Password) == 0) {
+        while (inFile.read(reinterpret_cast<char *> (&ac), sizeof(account))) {
+            if (strcmp(ac.GetLog().name,num.c_str()) == 0 && strcmp(password,ac.GetLog().Password) == 0) {
                 inFile.close();
                 return ac.GetLog().Number;
             }
+            else if (ac.GetLog().Number == stoi(num) && strcmp(password, ac.GetLog().Password) == 0){
+                inFile.close();
+                return ac.GetLog().Number;
+            }
+        }
+
     }
     return 0;
 }
 
+bool check(int n,int sum) {
+    account ac;
+    ifstream inFile;
+    inFile.open("account.dat", ios::binary);
+    if (!inFile) {
+        cout << "File could not be open !! Press any Key...";
+        return 0;
+    }
+    while (inFile.read(reinterpret_cast<char *> (&ac), sizeof(account)))
+        if (ac.GetLog().Number == n) {
+            if (ac.GetDeposite() - sum < 0) {
+                inFile.close();
+                return false;
+            }
+            else
+                return true;
+        }
+}
+
+void deposit_withdraw(int n,int option,int sum) {
+    bool found=false;
+    account ac;
+    fstream File;
+    File.open("account.dat", ios::binary|ios::in|ios::out);
+    if(!File)
+    {
+        cout<<"File could not be open !! Press any Key...";
+        return;
+    }
+    while(!File.eof() && !found)
+    {
+        File.read(reinterpret_cast<char *> (&ac), sizeof(account));
+        if(ac.GetLog().Number==n)
+        {
+            if(option==1)
+            {
+                ac.dep(sum);
+            }
+            if(option==2)
+            {
+                if (ac.GetDeposite() - sum >= 0)
+                ac.draw(sum);
+            }
+            int pos=(-1)*static_cast<int>(sizeof(ac));
+            File.seekp(pos,ios::cur);
+            File.write(reinterpret_cast<char *> (&ac), sizeof(account));
+            cout<<"\n\n\t Transfer complete";
+            found=true;
+        }
+    }
+    File.close();
+    if(found==false)
+        cout<<"\n\n Record Not Found ";
+}

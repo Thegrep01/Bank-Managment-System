@@ -5,7 +5,7 @@ void account::create_account() {
     cin>>l.Number;
     cout<<"\n\nEnter The Name of The account Holder : ";
     cin.ignore();
-    cin.getline(name,50);
+    cin.getline(l.name,50);
     cout << "\n\nEnter password : ";
     cin.getline(l.Password,12);
     cout<<"\nEnter The Initial amount : ";
@@ -16,7 +16,7 @@ void account::create_account() {
 void account::show_account() const {
     cout<<"\nAccount No. : "<<l.Number;
     cout<<"\nAccount Holder Name : ";
-    cout<<name;
+    cout<<l.name;
     cout<<"\nBalance amount : "<<deposit;
 }
 
@@ -24,7 +24,7 @@ void account::modify() {
     cout<<"\nAccount No. : "<<l.Number;
     cout<<"\nModify Account Holder Name : ";
     cin.ignore();
-    cin.getline(name,50);
+    cin.getline(l.name,50);
     cout << "\n\nEnter password : ";
     cin.ignore();
     cin.getline(l.Password,12);
@@ -41,7 +41,7 @@ void account::draw(int x) {
 }
 
 void account::report() const {
-    cout<<l.Number<<setw(10)<<" "<<name<< " " << setw(6)<<deposit<<endl;
+    cout<<l.Number<<setw(10)<<" "<<l.name<< " " << setw(6)<<deposit<<endl;
 }
 
 int account::GetDeposite() const {

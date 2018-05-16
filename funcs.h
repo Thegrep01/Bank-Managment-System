@@ -9,3 +9,5 @@ void display_all();
 void deposit_withdraw(int, int);
 void intro();
 int login();
+void deposit_withdraw(int n,int option,int sum);
+bool check(int n,int sum);

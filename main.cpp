@@ -58,7 +58,8 @@ int main() {
             cout<<"\n\n\t02. WITHDRAW AMOUNT";
             cout<<"\n\n\t03. BALANCE ENQUIRY";
             cout<<"\n\n\t04. MODIFY A PASSWORD";
-            cout<<"\n\n\t05. EXIT";
+            cout<<"\n\n\t05. TRANSFER MONEY";
+            cout<<"\n\n\t06. EXIT";
             cout<<"\n\n\tSelect Your Option (1-5) ";
             cin>>ch;
             system("clear");
@@ -77,13 +78,28 @@ int main() {
                     modify_account(n,1);
                     break;
                 case '5':
+                    cout << "\n\nEnter account number : ";
+                    cin >> num;
+                    cout << "\n\nEnter sum to transfer : ";
+                    int sum;
+                    cin >> sum;
+                    if (check(n,sum)){
+                        deposit_withdraw(n,2,sum);
+                        deposit_withdraw(num,1,sum);
+                    }
+                    else{
+                        cout << "Fail\n";
+                        break;
+                    }
+                    break;
+                case '6':
                     cout<<"\n\n\tThanks for using bank managemnt system";
                     break;
                 default :cout<<"a";
             }
             cin.ignore();
             cin.get();
-        }while(ch!='5');
+        }while(ch!='6');
         return 0;
     }
 
